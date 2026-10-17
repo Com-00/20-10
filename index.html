@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#a9154b">
+  <meta name="description" content="Thiệp 20/10 tương tác — chỉ HTML và CSS.">
+  <title>Chúc Mừng Ngày 20/10 🌷</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --wine: #8d123f;
+      --rose: #e94f83;
+      --pink: #ffb5cb;
+      --cream: #fff8f4;
+      --gold: #f8d88b;
+      --ink: #fffaf8;
+      --paper: rgba(255,255,255,.16);
+      --glow: rgba(255,166,198,.18);
+      --accent: #76113a;
+    }
+    html:has(#theme-gold:checked) {
+      --wine: #7a4a12;
+      --rose: #e6b15c;
+      --pink: #ffe3ad;
+      --gold: #fff1c4;
+      --glow: rgba(248,216,139,.22);
+      --accent: #6b3a08;
+    }
+    html:has(#theme-lilac:checked) {
+      --wine: #4d2a6b;
+      --rose: #c084fc;
+      --pink: #e9d5ff;
+      --gold: #f5d0fe;
+      --glow: rgba(216,180,254,.22);
+      --accent: #4c1d6e;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: "Quicksand", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse at 12% 10%, var(--glow), transparent 34%),
+        radial-gradient(ellipse at 88% 82%, rgba(248,216,139,.16), transparent 32%),
+        linear-gradient(135deg, #3d061f 0%, var(--wine) 46%, #c42e65 100%);
+      padding: 24px 16px 48px;
+    }
+    html:has(#theme-gold:checked) body {
+      background:
+        radial-gradient(ellipse at 12% 10%, var(--glow), transparent 34%),
+        linear-gradient(135deg, #3b2208 0%, #8a5314 48%, #d4a017 100%);
+    }
+    html:has(#theme-lilac:checked) body {
+      background:
+        radial-gradient(ellipse at 12% 10%, var(--glow), transparent 34%),
+        linear-gradient(135deg, #2a1144 0%, #6d28d9 48%, #db2777 100%);
+    }
+
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+    .glow {
+      position: fixed; width: 340px; height: 340px; border-radius: 50%;
+      background: var(--glow); filter: blur(34px);
+      pointer-events: none; animation: breathe 5.5s ease-in-out infinite alternate;
+    }
+    .glow.one { top: -130px; left: -90px; }
+    .glow.two { bottom: -160px; right: -80px; animation-delay: -2s; }
+
+    .petals { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+    .petal {
+      position: absolute; top: -12vh; font-size: 18px; opacity: .82;
+      animation: fall linear infinite;
+      filter: drop-shadow(0 3px 5px rgba(30,0,10,.16));
+    }
+    .petal:nth-child(1)  { left: 4%;  --drift: 70px;  animation-duration: 11s; font-size: 16px; animation-delay: -1s; }
+    .petal:nth-child(2)  { left: 12%; --drift: -40px; animation-duration: 13s; font-size: 22px; animation-delay: -4s; }
+    .petal:nth-child(3)  { left: 22%; --drift: 90px;  animation-duration: 9s;  font-size: 14px; animation-delay: -2s; }
+    .petal:nth-child(4)  { left: 31%; --drift: -80px; animation-duration: 14s; font-size: 20px; animation-delay: -7s; }
+    .petal:nth-child(5)  { left: 41%; --drift: 50px;  animation-duration: 10s; font-size: 18px; animation-delay: -3s; }
+    .petal:nth-child(6)  { left: 52%; --drift: -30px; animation-duration: 12s; font-size: 24px; animation-delay: -8s; }
+    .petal:nth-child(7)  { left: 61%; --drift: 100px; animation-duration: 8s;  font-size: 15px; animation-delay: -1.5s; }
+    .petal:nth-child(8)  { left: 70%; --drift: -60px; animation-duration: 15s; font-size: 19px; animation-delay: -6s; }
+    .petal:nth-child(9)  { left: 78%; --drift: 40px;  animation-duration: 11s; font-size: 17px; animation-delay: -9s; }
+    .petal:nth-child(10) { left: 86%; --drift: -90px; animation-duration: 13s; font-size: 21px; animation-delay: -2.5s; }
+    .petal:nth-child(11) { left: 93%; --drift: 20px;  animation-duration: 9.5s; font-size: 13px; animation-delay: -5s; }
+    .petal:nth-child(12) { left: 47%; --drift: 110px; animation-duration: 16s; font-size: 26px; animation-delay: -10s; }
+    .petal:nth-child(13) { left: 17%; --drift: -20px; animation-duration: 12.5s; font-size: 12px; animation-delay: -3.5s; }
+    .petal:nth-child(14) { left: 66%; --drift: 75px;  animation-duration: 10.5s; font-size: 23px; animation-delay: -6.5s; }
+    .petal:nth-child(15) { left: 8%;  --drift: -50px; animation-duration: 14.5s; font-size: 18px; animation-delay: -11s; }
+
+    .sparkles { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .sparkle {
+      position: absolute; width: 6px; height: 6px; border-radius: 50%;
+      background: #fff; box-shadow: 0 0 10px #fff7d6;
+      animation: twinkle 2.8s ease-in-out infinite;
+    }
+    .sparkle:nth-child(1) { top: 12%; left: 18%; animation-delay: 0s; }
+    .sparkle:nth-child(2) { top: 28%; left: 82%; animation-delay: .6s; }
+    .sparkle:nth-child(3) { top: 64%; left: 8%;  animation-delay: 1.2s; }
+    .sparkle:nth-child(4) { top: 78%; left: 90%; animation-delay: .3s; }
+    .sparkle:nth-child(5) { top: 42%; left: 50%; animation-delay: 1.8s; }
+    .sparkle:nth-child(6) { top: 8%;  left: 62%; animation-delay: .9s; }
+
+    .stage {
+      position: relative; z-index: 1;
+      width: min(860px, 100%);
+      margin: 0 auto;
+    }
+
+    .toolbar {
+      display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+      margin-bottom: 18px;
+    }
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: 999px; cursor: pointer;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.32);
+      font-weight: 700; font-size: .82rem; letter-spacing: .04em;
+      transition: transform .2s, background .2s, box-shadow .2s;
+      user-select: none;
+    }
+    .chip:hover { transform: translateY(-2px); background: rgba(255,255,255,.22); }
+    .chip:active { transform: scale(.96); }
+    #theme-rose:checked ~ .stage .chip[for="theme-rose"],
+    #theme-gold:checked ~ .stage .chip[for="theme-gold"],
+    #theme-lilac:checked ~ .stage .chip[for="theme-lilac"] {
+      background: linear-gradient(110deg, #ffe6a9, #fff3d7);
+      color: var(--accent);
+      box-shadow: 0 8px 20px rgba(0,0,0,.18);
+    }
+
+    .envelope-wrap { perspective: 1400px; }
+    .envelope {
+      position: relative;
+      min-height: 520px;
+    }
+
+    .flap, .pocket {
+      position: absolute; inset: 0; border-radius: 28px;
+    }
+    .pocket {
+      z-index: 1;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,.2), rgba(255,255,255,.06)),
+        linear-gradient(145deg, #9b1848, #c42e65);
+      box-shadow: 0 28px 80px rgba(20,0,10,.42);
+      border: 1px solid rgba(255,255,255,.4);
+      display: grid; place-items: center;
+      overflow: hidden;
+    }
+    .pocket::after {
+      content: ""; position: absolute; inset: 18px;
+      border: 1px dashed rgba(255,255,255,.28); border-radius: 20px;
+      pointer-events: none;
+    }
+    .flap {
+      z-index: 4; height: 54%; bottom: auto;
+      background: linear-gradient(180deg, #ffdca8, #f3b45d);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top center;
+      transition: transform .8s cubic-bezier(.2,.8,.2,1), opacity .5s, filter .4s;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.2));
+      pointer-events: none;
+    }
+    .seal {
+      position: absolute; z-index: 5; top: 38%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 86px; height: 86px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: radial-gradient(circle at 35% 30%, #ff6b8a, #9b123f 70%);
+      color: #fff7e8; font-size: 2rem;
+      box-shadow: 0 10px 24px rgba(80,0,20,.35), inset 0 2px 0 rgba(255,255,255,.35);
+      cursor: pointer;
+      transition: transform .35s, box-shadow .35s, opacity .5s, filter .35s;
+    }
+    .seal:hover { transform: translate(-50%, -50%) scale(1.08) rotate(-8deg); }
+    .seal:active { transform: translate(-50%, -50%) scale(.94); }
+
+    .closed-copy {
+      position: relative; z-index: 2; text-align: center; padding: 270px 24px 48px;
+      transition: opacity .4s, transform .4s;
+    }
+    .closed-copy h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(1.8rem, 5vw, 2.6rem); margin: 12px 0 8px;
+    }
+    .hint { opacity: .85; font-size: .95rem; }
+
+    .letter {
+      position: relative;
+      z-index: 6;
+      display: none;
+      background: linear-gradient(145deg, rgba(255,255,255,.2), rgba(255,255,255,.08));
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,.48);
+      border-radius: 28px;
+      box-shadow: 0 28px 90px rgba(35,0,17,.38), inset 0 1px rgba(255,255,255,.25);
+      padding: clamp(22px, 5vw, 48px) clamp(16px, 5vw, 48px) 28px;
+      animation: cardIn .55s ease both;
+    }
+
+    body:has(#open:checked) .flap {
+      transform: rotateX(-160deg) translateY(-8px);
+      opacity: 0;
+      filter: brightness(.8);
+    }
+    body:has(#open:checked) .seal {
+      opacity: 0; pointer-events: none; transform: translate(-50%, -50%) scale(1.6);
+    }
+    body:has(#open:checked) .closed-copy { opacity: 0; transform: translateY(-20px); pointer-events: none; }
+    body:has(#open:checked) .letter { display: block; }
+    body:has(#open:checked) .pocket { pointer-events: none; opacity: 0; }
+    body:has(#open:checked) .envelope { min-height: 0; }
+    body:has(#open:checked) .confetti span { animation-play-state: running; }
+
+    .close-btn {
+      display: none;
+      width: max-content;
+      margin: 0 auto 10px;
+      cursor: pointer;
+      background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.3);
+      color: inherit; border-radius: 999px; padding: 8px 16px; font-weight: 700;
+    }
+    body:has(#open:checked) .close-btn { display: block; }
+
+    .eyebrow {
+      text-transform: uppercase; letter-spacing: .24em; font-size: .74rem;
+      font-weight: 700; color: #ffe3ed; margin: 0 0 10px; text-align: center;
+    }
+    h1 {
+      font-family: "Playfair Display", Georgia, serif; font-weight: 600;
+      font-size: clamp(2.1rem, 7vw, 4.4rem); line-height: 1.08;
+      margin: 0; text-align: center;
+      text-shadow: 0 5px 24px rgba(52,0,22,.24);
+      background: linear-gradient(90deg, #fff, #ffdca0, #fff, #ffdca0);
+      background-size: 220% auto;
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: shine 6s linear infinite;
+    }
+    h1 span { display: block; font-style: italic; }
+
+    .bouquet {
+      display: flex; justify-content: center; gap: 10px; margin: 18px 0 6px;
+      filter: drop-shadow(0 10px 15px rgba(48,0,20,.22));
+    }
+    .flower {
+      font-size: clamp(2.2rem, 7vw, 3.6rem);
+      cursor: pointer; transition: transform .35s;
+      animation: bouquet 3.2s ease-in-out infinite;
+      user-select: none;
+    }
+    .flower:nth-child(2) { animation-delay: -.8s; }
+    .flower:nth-child(3) { animation-delay: -1.6s; }
+    .flower:nth-child(4) { animation-delay: -2.2s; }
+    .flower:nth-child(5) { animation-delay: -2.8s; }
+    .flower:hover { transform: translateY(-10px) scale(1.18) rotate(-8deg); }
+    .flower:active { transform: scale(1.35) rotate(12deg); }
+    #f1:checked ~ .stage .flower[for="f1"],
+    #f2:checked ~ .stage .flower[for="f2"],
+    #f3:checked ~ .stage .flower[for="f3"],
+    #f4:checked ~ .stage .flower[for="f4"],
+    #f5:checked ~ .stage .flower[for="f5"] {
+      transform: scale(1.4) rotate(16deg);
+      filter: drop-shadow(0 0 12px #ffe6a9);
+      animation: pop 0.6s ease;
+    }
+    .bloom-note {
+      min-height: 1.4em; text-align: center; font-size: .92rem; color: #ffe0a0;
+      opacity: 0; transition: opacity .3s;
+    }
+    #f1:checked ~ .stage .bloom-note.n1,
+    #f2:checked ~ .stage .bloom-note.n2,
+    #f3:checked ~ .stage .bloom-note.n3,
+    #f4:checked ~ .stage .bloom-note.n4,
+    #f5:checked ~ .stage .bloom-note.n5 { opacity: 1; }
+    .bloom-stack { position: relative; height: 1.5em; margin-bottom: 8px; }
+    .bloom-stack .bloom-note { position: absolute; inset: 0; }
+
+    .intro { max-width: 540px; margin: 8px auto 0; line-height: 1.8; text-align: center; color: #fff0f5; }
+
+    .tabs {
+      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 22px 0 14px;
+    }
+    .tab {
+      cursor: pointer; border-radius: 999px; padding: 9px 14px;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.28);
+      font-weight: 700; font-size: .85rem; transition: .2s;
+    }
+    .tab:hover { transform: translateY(-2px); background: rgba(255,255,255,.18); }
+    #panel-wish:checked ~ .stage .tab[for="panel-wish"],
+    #panel-gift:checked ~ .stage .tab[for="panel-gift"],
+    #panel-garden:checked ~ .stage .tab[for="panel-garden"],
+    #panel-secret:checked ~ .stage .tab[for="panel-secret"] {
+      background: linear-gradient(110deg, #ffe6a9, #fff3d7);
+      color: var(--accent);
+    }
+
+    .panels { position: relative; }
+    .panel {
+      display: none; animation: cardIn .45s ease both;
+    }
+    #panel-wish:checked ~ .stage .panel.wish,
+    #panel-gift:checked ~ .stage .panel.gift,
+    #panel-garden:checked ~ .stage .panel.garden,
+    #panel-secret:checked ~ .stage .panel.secret { display: block; }
+
+    .wish-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    .flip { perspective: 900px; height: 170px; }
+    .flip-inner {
+      position: relative; width: 100%; height: 100%;
+      transform-style: preserve-3d; transition: transform .7s;
+      cursor: pointer;
+    }
+    .flip:hover .flip-inner,
+    .flip input:checked + .flip-inner { transform: rotateY(180deg); }
+    .face {
+      position: absolute; inset: 0; backface-visibility: hidden;
+      border-radius: 18px; padding: 16px;
+      display: grid; place-items: center; text-align: center;
+      border: 1px solid rgba(255,255,255,.3);
+      background: rgba(255,248,244,.14);
+    }
+    .back { transform: rotateY(180deg); background: rgba(255,220,160,.18); color: #fff8e8; font-weight: 600; }
+
+    .gifts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    @media (max-width: 560px) { .gifts { grid-template-columns: 1fr; } }
+    .gift {
+      position: relative; border-radius: 18px; min-height: 150px;
+      background: linear-gradient(160deg, #ff8fab, #c9184a);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.25);
+      overflow: hidden; cursor: pointer;
+    }
+    .gift.gold { background: linear-gradient(160deg, #f6d365, #fda085); }
+    .gift.lilac { background: linear-gradient(160deg, #c084fc, #fb7185); }
+    .lid {
+      position: absolute; inset: 0 0 55% 0;
+      background: rgba(255,255,255,.22);
+      display: grid; place-items: center; font-size: 1.6rem;
+      transition: transform .55s cubic-bezier(.2,.8,.2,1);
+      transform-origin: top center;
+    }
+    .ribbon {
+      position: absolute; left: 50%; top: 0; bottom: 0; width: 16px;
+      background: rgba(255,255,255,.45); transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .gift-msg {
+      position: absolute; inset: 48% 10px 12px;
+      display: grid; place-items: center; text-align: center;
+      font-weight: 700; opacity: 0; transform: translateY(8px);
+      transition: .4s .15s;
+    }
+    .gift input:checked ~ .lid { transform: translateY(-110%) rotate(-8deg); }
+    .gift input:checked ~ .gift-msg { opacity: 1; transform: none; }
+    .gift:hover .lid { filter: brightness(1.08); }
+
+    .plot {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; align-items: end;
+      min-height: 180px; padding: 10px 6px 0;
+      background: linear-gradient(180deg, transparent, rgba(20,80,40,.18));
+      border-radius: 18px;
+    }
+    .plant { text-align: center; cursor: pointer; }
+    .stem {
+      width: 6px; height: 54px; margin: 0 auto;
+      background: linear-gradient(#86efac, #166534);
+      border-radius: 8px;
+      transform-origin: bottom; transition: height .5s;
+    }
+    .bloom { font-size: 1.8rem; display: block; transition: transform .4s; filter: grayscale(.2); }
+    .plant:hover .bloom { transform: scale(1.25) rotate(-10deg); filter: none; }
+    .plant:hover .stem { height: 78px; }
+    .plant input:checked ~ .bloom { transform: scale(1.45) rotate(12deg); filter: none; animation: pop .5s; }
+    .plant input:checked ~ .stem { height: 90px; background: linear-gradient(#bbf7d0, #15803d); }
+
+    .secret details {
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.25);
+      border-radius: 16px; padding: 10px 14px; margin-bottom: 10px;
+    }
+    .secret summary {
+      cursor: pointer; font-weight: 700; list-style: none;
+    }
+    .secret summary::-webkit-details-marker { display: none; }
+    .secret summary::before { content: "♡  "; color: #ffdca0; }
+    .secret details[open] summary::before { content: "♥  "; }
+    .secret details p { margin: 8px 0 4px; line-height: 1.7; }
+
+    .love-meter { margin-top: 16px; text-align: center; }
+    .hearts-pick { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+    .hearts-pick label {
+      cursor: pointer; font-size: 1.5rem; filter: grayscale(.7) brightness(.8);
+      transition: transform .2s, filter .2s;
+    }
+    .hearts-pick label:hover { transform: scale(1.2); filter: none; }
+    #h1:checked ~ .stage .hearts-pick label[for="h1"],
+    #h2:checked ~ .stage .hearts-pick label[for="h1"],
+    #h2:checked ~ .stage .hearts-pick label[for="h2"],
+    #h3:checked ~ .stage .hearts-pick label[for="h1"],
+    #h3:checked ~ .stage .hearts-pick label[for="h2"],
+    #h3:checked ~ .stage .hearts-pick label[for="h3"],
+    #h4:checked ~ .stage .hearts-pick label[for="h1"],
+    #h4:checked ~ .stage .hearts-pick label[for="h2"],
+    #h4:checked ~ .stage .hearts-pick label[for="h3"],
+    #h4:checked ~ .stage .hearts-pick label[for="h4"],
+    #h5:checked ~ .stage .hearts-pick label[for="h1"],
+    #h5:checked ~ .stage .hearts-pick label[for="h2"],
+    #h5:checked ~ .stage .hearts-pick label[for="h3"],
+    #h5:checked ~ .stage .hearts-pick label[for="h4"],
+    #h5:checked ~ .stage .hearts-pick label[for="h5"] {
+      filter: none; transform: scale(1.15);
+    }
+    .love-text { text-align: center; min-height: 1.4em; margin: 8px 0 0; color: #ffe0a0; font-style: italic; }
+    .love-text span { display: none; }
+    #h1:checked ~ .stage .love-text .t1,
+    #h2:checked ~ .stage .love-text .t2,
+    #h3:checked ~ .stage .love-text .t3,
+    #h4:checked ~ .stage .love-text .t4,
+    #h5:checked ~ .stage .love-text .t5 { display: inline; }
+
+    .polaroids {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px;
+    }
+    @media (max-width: 560px) { .polaroids { grid-template-columns: 1fr; } }
+    .polaroid {
+      background: #fffaf4; color: #7a1840; padding: 10px 10px 18px;
+      border-radius: 6px; transform: rotate(-3deg);
+      box-shadow: 0 10px 22px rgba(0,0,0,.2);
+      transition: transform .3s;
+      cursor: pointer;
+    }
+    .polaroid:nth-child(2) { transform: rotate(2deg); }
+    .polaroid:nth-child(3) { transform: rotate(-1.5deg); }
+    .polaroid:hover, .polaroid:focus-within { transform: rotate(0) scale(1.06); z-index: 2; }
+    .photo {
+      height: 88px; border-radius: 4px;
+      display: grid; place-items: center; font-size: 2.2rem;
+      background: linear-gradient(135deg, #fecdd3, #fda4af);
+    }
+    .polaroid:nth-child(2) .photo { background: linear-gradient(135deg, #fde68a, #fca5a5); }
+    .polaroid:nth-child(3) .photo { background: linear-gradient(135deg, #e9d5ff, #f9a8d4); }
+    .caption { font-size: .78rem; font-weight: 700; text-align: center; margin-top: 8px; }
+
+    .signature {
+      margin: 18px 0 0; text-align: center; color: #ffe0a0;
+      font-family: "Playfair Display", Georgia, serif; font-style: italic; font-size: 1.2rem;
+    }
+    .footer { margin: 16px 0 0; text-align: center; font-size: .78rem; color: rgba(255,240,246,.72); letter-spacing: .06em; }
+
+    .confetti {
+      pointer-events: none; position: absolute; inset: 0; overflow: hidden; z-index: 6;
+    }
+    .confetti span {
+      position: absolute; top: 40%; left: 50%;
+      font-size: 18px; opacity: 0;
+      animation: burst 1.6s ease-out both paused;
+    }
+    .confetti span:nth-child(1) { --x: -140px; --y: -120px; animation-delay: 0s; }
+    .confetti span:nth-child(2) { --x: 130px; --y: -90px; animation-delay: .05s; }
+    .confetti span:nth-child(3) { --x: -40px; --y: -160px; animation-delay: .08s; }
+    .confetti span:nth-child(4) { --x: 90px; --y: -150px; animation-delay: .12s; }
+    .confetti span:nth-child(5) { --x: -180px; --y: -40px; animation-delay: .04s; }
+    .confetti span:nth-child(6) { --x: 170px; --y: -30px; animation-delay: .1s; }
+    .confetti span:nth-child(7) { --x: -100px; --y: 20px; animation-delay: .14s; }
+    .confetti span:nth-child(8) { --x: 40px; --y: -180px; animation-delay: .02s; }
+    .confetti span:nth-child(9) { --x: 200px; --y: -80px; animation-delay: .16s; }
+    .confetti span:nth-child(10){ --x: -60px; --y: -80px; animation-delay: .18s; }
+    .confetti span:nth-child(11){ --x: 10px; --y: -200px; animation-delay: .07s; }
+    .confetti span:nth-child(12){ --x: -210px; --y: -100px; animation-delay: .11s; }
+
+    .music {
+      position: fixed; right: 16px; bottom: 16px; z-index: 8;
+    }
+    .music-box {
+      width: 58px; height: 58px; border-radius: 50%;
+      display: grid; place-items: center; cursor: pointer;
+      background: linear-gradient(135deg, #ffe6a9, #fff);
+      color: var(--accent); font-size: 1.4rem;
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+      transition: transform .25s;
+    }
+    .music-box:hover { transform: scale(1.08) rotate(-8deg); }
+    .notes { position: absolute; right: 8px; bottom: 64px; width: 40px; height: 90px; pointer-events: none; }
+    .notes i {
+      position: absolute; left: 8px; bottom: 0; opacity: 0; font-style: normal;
+    }
+    #music:checked ~ .music .music-box { animation: spin 4s linear infinite; }
+    #music:checked ~ .music .notes i { animation: noteUp 2.2s ease-out infinite; }
+    #music:checked ~ .music .notes i:nth-child(2) { animation-delay: .7s; left: 20px; }
+    #music:checked ~ .music .notes i:nth-child(3) { animation-delay: 1.3s; left: 0; }
+
+    .tilt-card:hover {
+      transform: rotateX(6deg) rotateY(-6deg) translateY(-6px);
+    }
+    .letter { transform-style: preserve-3d; }
+
+    @keyframes cardIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    @keyframes breathe { to { transform: scale(1.25); opacity: .65; } }
+    @keyframes bouquet { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-7px) rotate(2deg); } }
+    @keyframes fall { to { transform: translate3d(var(--drift), 120vh, 0) rotate(640deg); opacity: .12; } }
+    @keyframes twinkle { 0%,100% { opacity: .15; transform: scale(.6); } 50% { opacity: 1; transform: scale(1.4); } }
+    @keyframes shine { to { background-position: 220% center; } }
+    @keyframes pop { 0% { transform: scale(.6); } 60% { transform: scale(1.5); } 100% { transform: scale(1.4); } }
+    @keyframes burst {
+      0% { opacity: 1; transform: translate(0,0) scale(.4) rotate(0); }
+      100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(1.4) rotate(220deg); }
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes noteUp {
+      0% { opacity: 0; transform: translateY(0); }
+      20% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-80px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <input class="sr" type="checkbox" id="open">
+  <input class="sr" type="radio" name="theme" id="theme-rose" checked>
+  <input class="sr" type="radio" name="theme" id="theme-gold">
+  <input class="sr" type="radio" name="theme" id="theme-lilac">
+  <input class="sr" type="checkbox" id="f1">
+  <input class="sr" type="checkbox" id="f2">
+  <input class="sr" type="checkbox" id="f3">
+  <input class="sr" type="checkbox" id="f4">
+  <input class="sr" type="checkbox" id="f5">
+  <input class="sr" type="radio" name="panel" id="panel-wish" checked>
+  <input class="sr" type="radio" name="panel" id="panel-gift">
+  <input class="sr" type="radio" name="panel" id="panel-garden">
+  <input class="sr" type="radio" name="panel" id="panel-secret">
+  <input class="sr" type="radio" name="love" id="h1">
+  <input class="sr" type="radio" name="love" id="h2">
+  <input class="sr" type="radio" name="love" id="h3" checked>
+  <input class="sr" type="radio" name="love" id="h4">
+  <input class="sr" type="radio" name="love" id="h5">
+  <input class="sr" type="checkbox" id="music">
+
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+  <div class="petals" aria-hidden="true">
+    <span class="petal">🌸</span><span class="petal">🌷</span><span class="petal">💮</span>
+    <span class="petal">✨</span><span class="petal">💕</span><span class="petal">🌸</span>
+    <span class="petal">🌷</span><span class="petal">💖</span><span class="petal">💮</span>
+    <span class="petal">✨</span><span class="petal">🌸</span><span class="petal">🌷</span>
+    <span class="petal">💕</span><span class="petal">💮</span><span class="petal">✨</span>
+  </div>
+  <div class="sparkles" aria-hidden="true">
+    <i class="sparkle"></i><i class="sparkle"></i><i class="sparkle"></i>
+    <i class="sparkle"></i><i class="sparkle"></i><i class="sparkle"></i>
+  </div>
+
+  <div class="stage">
+    <div class="toolbar" role="group" aria-label="Đổi màu thiệp">
+      <label class="chip" for="theme-rose">Hồng rượu</label>
+      <label class="chip" for="theme-gold">Vàng nắng</label>
+      <label class="chip" for="theme-lilac">Tím lavender</label>
+    </div>
+
+    <div class="envelope-wrap">
+      <div class="envelope">
+        <div class="pocket">
+          <div class="closed-copy">
+            <p class="eyebrow">A sealed letter</p>
+            <h2>Thiệp 20/10</h2>
+            <p class="hint">Chạm vào con dấu để mở phong bì</p>
+          </div>
+        </div>
+        <div class="flap" aria-hidden="true"></div>
+        <label class="seal" for="open" title="Mở thiệp">❀</label>
+
+        <article class="letter tilt-card">
+          <label class="close-btn" for="open">Đóng phong bì ✉</label>
+          <p class="eyebrow">A little note, just for you</p>
+          <h1>Chúc Mừng <span>Ngày 20/10</span></h1>
+
+          <div class="bouquet" aria-hidden="true">
+            <label class="flower" for="f1">💐</label>
+            <label class="flower" for="f2">🌷</label>
+            <label class="flower" for="f3">💗</label>
+            <label class="flower" for="f4">🌹</label>
+            <label class="flower" for="f5">✨</label>
+          </div>
+          <div class="bloom-stack">
+            <p class="bloom-note n1">Một bó hoa cho nụ cười của bạn.</p>
+            <p class="bloom-note n2">Tulip dịu dàng — như bạn vậy.</p>
+            <p class="bloom-note n3">Gửi một trái tim, không cần lý do.</p>
+            <p class="bloom-note n4">Hoa hồng đỏ cho người rạng rỡ.</p>
+            <p class="bloom-note n5">Lấp lánh theo cách riêng của bạn.</p>
+          </div>
+
+          <p class="intro">Gửi đến những người phụ nữ tuyệt vời — mong hôm nay của bạn ngập tràn yêu thương, nụ cười và những điều dịu dàng nhất. Chạm, lật, mở quà, trồng hoa — tất cả đều dành cho bạn.</p>
+
+          <div class="tabs">
+            <label class="tab" for="panel-wish">Lời chúc</label>
+            <label class="tab" for="panel-gift">Mở quà</label>
+            <label class="tab" for="panel-garden">Vườn hoa</label>
+            <label class="tab" for="panel-secret">Bí mật</label>
+          </div>
+
+          <div class="panels">
+            <section class="panel wish">
+              <div class="wish-grid">
+                <label class="flip">
+                  <input class="sr" type="checkbox">
+                  <div class="flip-inner">
+                    <div class="face">Lật thiệp · Xinh đẹp</div>
+                    <div class="face back">Chúc bạn luôn xinh đẹp theo cách riêng, không cần ai cho phép.</div>
+                  </div>
+                </label>
+                <label class="flip">
+                  <input class="sr" type="checkbox">
+                  <div class="flip-inner">
+                    <div class="face">Lật thiệp · Hạnh phúc</div>
+                    <div class="face back">Chúc mọi ngày đều có lý do để mỉm cười, dù chỉ là một tách trà ấm.</div>
+                  </div>
+                </label>
+                <label class="flip">
+                  <input class="sr" type="checkbox">
+                  <div class="flip-inner">
+                    <div class="face">Lật thiệp · Ước mơ</div>
+                    <div class="face back">Chúc mọi ước mơ đều có cơ hội nở hoa — chậm cũng được, miễn là tới.</div>
+                  </div>
+                </label>
+              </div>
+            </section>
+
+            <section class="panel gift">
+              <div class="gifts">
+                <label class="gift">
+                  <input class="sr" type="checkbox" id="box1">
+                  <span class="ribbon"></span>
+                  <span class="lid">🎁</span>
+                  <span class="gift-msg">Một ngày thật nhẹ, không việc gì phải vội.</span>
+                </label>
+                <label class="gift gold">
+                  <input class="sr" type="checkbox" id="box2">
+                  <span class="ribbon"></span>
+                  <span class="lid">🎀</span>
+                  <span class="gift-msg">Một lời khen thành thật: bạn làm thế giới dịu hơn.</span>
+                </label>
+                <label class="gift lilac">
+                  <input class="sr" type="checkbox" id="box3">
+                  <span class="ribbon"></span>
+                  <span class="lid">💝</span>
+                  <span class="gift-msg">Một cái ôm dài — kể cả khi chỉ là trên màn hình.</span>
+                </label>
+              </div>
+            </section>
+
+            <section class="panel garden">
+              <p style="text-align:center;margin:0 0 8px;font-size:.9rem;">Chạm từng cây để hoa nở to hơn.</p>
+              <div class="plot">
+                <label class="plant"><input class="sr" type="checkbox"><span class="bloom">🌸</span><span class="stem"></span></label>
+                <label class="plant"><input class="sr" type="checkbox"><span class="bloom">🌷</span><span class="stem"></span></label>
+                <label class="plant"><input class="sr" type="checkbox"><span class="bloom">🌼</span><span class="stem"></span></label>
+                <label class="plant"><input class="sr" type="checkbox"><span class="bloom">🌹</span><span class="stem"></span></label>
+                <label class="plant"><input class="sr" type="checkbox"><span class="bloom">🌺</span><span class="stem"></span></label>
+              </div>
+            </section>
+
+            <section class="panel secret">
+              <details>
+                <summary>Điều mình muốn nói khẽ</summary>
+                <p>Bạn xứng đáng được yêu thương mà không phải chứng minh điều gì. 20/10 chỉ là cái cớ để nhắc bạn điều đó.</p>
+              </details>
+              <details>
+                <summary>Một lời thì thầm</summary>
+                <p>Nếu hôm nay hơi mệt, cứ chậm lại. Hoa vẫn nở khi bạn không nhìn.</p>
+              </details>
+              <details>
+                <summary>Lời chúc gửi xa</summary>
+                <p>Dù bạn đang ở đâu, mong có một góc trời vừa đủ ấm để bạn được là chính mình.</p>
+              </details>
+            </section>
+          </div>
+
+          <div class="love-meter">
+            <span style="font-weight:700">Mức độ yêu thương hôm nay</span>
+            <div class="hearts-pick" style="margin-top:10px">
+              <label for="h1">💗</label>
+              <label for="h2">💗</label>
+              <label for="h3">💗</label>
+              <label for="h4">💗</label>
+              <label for="h5">💗</label>
+            </div>
+            <p class="love-text">
+              <span class="t1">Dịu nhẹ như sương.</span>
+              <span class="t2">Ấm như trà chiều.</span>
+              <span class="t3">Đủ đầy và chân thành.</span>
+              <span class="t4">Tràn như vườn hoa tháng mười.</span>
+              <span class="t5">Vô hạn — gửi cả bầu trời.</span>
+            </p>
+          </div>
+
+          <div class="polaroids">
+            <div class="polaroid" tabindex="0">
+              <div class="photo">☀️</div>
+              <div class="caption">Nắng trên vai</div>
+            </div>
+            <div class="polaroid" tabindex="0">
+              <div class="photo">☕</div>
+              <div class="caption">Một tách bình yên</div>
+            </div>
+            <div class="polaroid" tabindex="0">
+              <div class="photo">🌙</div>
+              <div class="caption">Đêm dịu dàng</div>
+            </div>
+          </div>
+
+          <p class="signature">Bạn xứng đáng với những điều tuyệt vời nhất. ❤️</p>
+          <p class="footer">20 THÁNG 10 · TẶNG BẠN MỘT CHÚT YÊU THƯƠNG · CHỈ HTML &amp; CSS</p>
+        </article>
+
+        <div class="confetti" aria-hidden="true">
+          <span>💗</span><span>🌷</span><span>✨</span><span>💖</span>
+          <span>🌸</span><span>💮</span><span>💕</span><span>🌹</span>
+          <span>⭐</span><span>💐</span><span>🎀</span><span>🌼</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="music">
+    <label class="music-box" for="music" title="Bật nốt nhạc bay">♪</label>
+    <div class="notes" aria-hidden="true"><i>♪</i><i>♫</i><i>♬</i></div>
+  </div>
+</body>
+</html>
