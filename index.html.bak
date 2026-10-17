@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2a0812">
+  <meta name="description" content="Gửi bạn một thiệp 20/10 ngập tràn yêu thương. Chạm để mở phong bì và nhận lời chúc.">
+  <title>Chúc Mừng Ngày 20/10 🌷</title>
+  <link rel="canonical" href="https://com-00.github.io/20-10/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌷%3C/text%3E%3C/svg%3E">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="vi_VN">
+  <meta property="og:site_name" content="Thiệp 20/10">
+  <meta property="og:url" content="https://com-00.github.io/20-10/">
+  <meta property="og:title" content="Chúc Mừng Ngày 20/10 🌷">
+  <meta property="og:description" content="Gửi bạn một thiệp 20/10 ngập tràn yêu thương. Chạm để mở phong bì và nhận lời chúc.">
+  <meta property="og:image" content="https://com-00.github.io/20-10/og-image.jpg?v=2">
+  <meta property="og:image:secure_url" content="https://com-00.github.io/20-10/og-image.jpg?v=2">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Thiệp chúc mừng ngày 20/10">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Chúc Mừng Ngày 20/10 🌷">
+  <meta name="twitter:description" content="Gửi bạn một thiệp 20/10 ngập tràn yêu thương.">
+  <meta name="twitter:image" content="https://com-00.github.io/20-10/og-image.jpg?v=2">
+  <link rel="image_src" href="https://com-00.github.io/20-10/og-image.jpg?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ease: cubic-bezier(.22, 1, .36, 1);
+      --soft: cubic-bezier(.45, .02, .1, 1);
+      --ink: cubic-bezier(.37, .05, .15, 1);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      overflow-x: hidden;
+      font-family: "Quicksand", sans-serif;
+      color: #fff7f0;
+      background:
+        radial-gradient(ellipse at 50% -8%, rgba(255, 196, 140, .14), transparent 44%),
+        radial-gradient(ellipse at 50% 115%, rgba(50, 6, 20, .6), transparent 52%),
+        linear-gradient(168deg, #0e0307 0%, #320816 48%, #701436 100%);
+      padding: 28px 16px 72px;
+    }
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+    .vignette {
+      position: fixed; inset: 0; pointer-events: none; z-index: 1;
+      background: radial-gradient(ellipse at 50% 42%, transparent 32%, rgba(6, 0, 3, .66) 100%);
+    }
+    .grain {
+      position: fixed; inset: 0; pointer-events: none; z-index: 12; opacity: .045;
+      background-image: repeating-radial-gradient(circle at 20% 30%, #fff 0 1px, transparent 1px 4px);
+      mix-blend-mode: overlay;
+    }
+    .rays {
+      position: fixed; inset: -14%; pointer-events: none; z-index: 0;
+      opacity: 0; transform: scale(.8);
+      background:
+        radial-gradient(ellipse at 50% 34%, rgba(255, 224, 170, .42), transparent 32%),
+        radial-gradient(ellipse at 50% 50%, rgba(255, 168, 120, .1), transparent 50%);
+      filter: blur(12px);
+      transition: opacity 5s var(--soft), transform 6s var(--soft);
+    }
+    html:has(#open:checked) .rays {
+      opacity: .92;
+      transform: scale(1);
+      animation: rayBreathe 11s 5s ease-in-out infinite;
+    }
+    .climax {
+      position: fixed; inset: 0; pointer-events: none; z-index: 2;
+      opacity: 0;
+      background: radial-gradient(ellipse at 50% 38%, rgba(255, 232, 186, .32), transparent 46%);
+    }
+    html:has(#open:checked) .climax { animation: climax 8s 29s var(--ease) both; }
+
+    .glow {
+      position: fixed; width: 440px; height: 440px; border-radius: 50%;
+      pointer-events: none; filter: blur(52px);
+      animation: breathe 13s ease-in-out infinite alternate;
+    }
+    .glow.one { top: -170px; left: -100px; background: rgba(255, 150, 180, .13); }
+    .glow.two { bottom: -190px; right: -110px; background: rgba(232, 196, 138, .11); animation-delay: -5s; }
+
+    .petals { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 4; perspective: 1100px; }
+    .petal {
+      position: absolute; top: -14vh;
+      animation: fall 26s linear infinite;
+      transform-style: preserve-3d;
+      filter: drop-shadow(0 10px 12px rgba(16, 0, 6, .2));
+      opacity: .2;
+    }
+    html:has(#open:checked) .petal.far { opacity: .48; }
+    html:has(#open:checked) .petal.mid { opacity: .78; }
+    html:has(#open:checked) .petal.near { opacity: .95; }
+    .petal:nth-child(1)  { left: 6%;  --x: 80px;  --z: -220px; animation-duration: 30s; animation-delay: -4s;  font-size: 13px; }
+    .petal:nth-child(2)  { left: 16%; --x: -56px; --z: 50px;   animation-duration: 22s; animation-delay: -9s;  font-size: 22px; }
+    .petal:nth-child(3)  { left: 28%; --x: 96px;  --z: -110px; animation-duration: 28s; animation-delay: -2s;  font-size: 12px; }
+    .petal:nth-child(4)  { left: 38%; --x: -88px; --z: 140px;  animation-duration: 19s; animation-delay: -13s; font-size: 26px; }
+    .petal:nth-child(5)  { left: 50%; --x: 44px;  --z: -50px;  animation-duration: 24s; animation-delay: -6s;  font-size: 17px; }
+    .petal:nth-child(6)  { left: 60%; --x: -34px; --z: 24px;   animation-duration: 27s; animation-delay: -16s; font-size: 15px; }
+    .petal:nth-child(7)  { left: 72%; --x: 108px; --z: -160px; animation-duration: 32s; animation-delay: -5s;  font-size: 11px; }
+    .petal:nth-child(8)  { left: 82%; --x: -64px; --z: 90px;   animation-duration: 21s; animation-delay: -10s; font-size: 21px; }
+    .petal:nth-child(9)  { left: 90%; --x: 30px;  --z: -80px;  animation-duration: 29s; animation-delay: -7s;  font-size: 14px; }
+    .petal:nth-child(10) { left: 10%; --x: -102px; --z: 180px; animation-duration: 18s; animation-delay: -14s; font-size: 28px; }
+    .petal:nth-child(11) { left: 44%; --x: 126px; --z: -240px; animation-duration: 33s; animation-delay: -8s;  font-size: 10px; }
+    .petal:nth-child(12) { left: 66%; --x: -24px; --z: 60px;   animation-duration: 23s; animation-delay: -17s; font-size: 19px; }
+
+    .sparkle {
+      position: fixed; width: 4px; height: 4px; border-radius: 50%;
+      background: #fff8dc; box-shadow: 0 0 12px #ffe7b0;
+      pointer-events: none; z-index: 3; animation: twinkle 6.4s ease-in-out infinite;
+    }
+    .sparkle:nth-child(1) { top: 12%; left: 16%; }
+    .sparkle:nth-child(2) { top: 24%; left: 84%; animation-delay: 1.2s; }
+    .sparkle:nth-child(3) { top: 68%; left: 8%; animation-delay: 2s; }
+    .sparkle:nth-child(4) { top: 80%; left: 90%; animation-delay: .7s; }
+    .sparkle:nth-child(5) { top: 8%; left: 56%; animation-delay: 2.6s; }
+
+    .stage {
+      position: relative; z-index: 5;
+      width: min(640px, 100%);
+      margin: 0 auto;
+    }
+    .envelope-wrap {
+      perspective: 1800px;
+      animation: rest 9s ease-in-out infinite;
+    }
+    html:has(#open:checked) .envelope-wrap { animation: none; }
+    .envelope {
+      position: relative;
+      min-height: min(74vh, 580px);
+      transform-style: preserve-3d;
+      transition: min-height 3.2s 1.6s var(--soft);
+    }
+    html:has(#open:checked) .envelope { min-height: 0; }
+
+    .pocket, .flap, .slit, .sheet { position: absolute; inset: 0; border-radius: 28px; }
+    .open-hit {
+      position: absolute; inset: 0; z-index: 8; cursor: pointer; border-radius: 28px;
+      touch-action: manipulation;
+    }
+    html:has(#open:checked) .open-hit { pointer-events: none; }
+
+    .pocket {
+      z-index: 2;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,.2), rgba(255,255,255,.03)),
+        linear-gradient(148deg, #641034, #c43362 58%, #801640);
+      box-shadow: 0 50px 110px rgba(4, 0, 2, .58), inset 0 1px 0 rgba(255,255,255,.28);
+      border: 1px solid rgba(255,255,255,.26);
+      overflow: hidden;
+      transition: opacity 2.8s 2s var(--soft), transform 3.2s 1.5s var(--soft), filter 2.4s 1.8s;
+    }
+    .pocket::after {
+      content: ""; position: absolute; inset: 20px;
+      border: 1px dashed rgba(255,232,186,.36); border-radius: 18px;
+    }
+    .sheet {
+      z-index: 4; left: 9%; right: 9%; top: 16%; bottom: auto; height: 58%;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #fffaf3, #ffe9e0);
+      box-shadow: 0 18px 40px rgba(40, 0, 16, .18);
+      opacity: 0;
+      transform: translate3d(0, 46px, 20px);
+      pointer-events: none;
+    }
+    html:has(#open:checked) .sheet { animation: peek 4.4s .7s var(--soft) both; }
+    .slit {
+      z-index: 5; inset: 5% 7% auto; height: 46%;
+      background: radial-gradient(ellipse at 50% 90%, rgba(255, 236, 186, .95), rgba(255, 196, 110, .18) 48%, transparent 74%);
+      opacity: 0; filter: blur(7px); mix-blend-mode: screen;
+      pointer-events: none;
+    }
+    html:has(#open:checked) .slit { animation: slit 5.2s .08s var(--ease) both; }
+    .flap {
+      z-index: 6; height: 52%; bottom: auto;
+      background: linear-gradient(180deg, #fff8de 0%, #efc56c 52%, #d4a045 100%);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top center;
+      transform: rotateX(0);
+      filter: drop-shadow(0 20px 26px rgba(0,0,0,.3));
+      pointer-events: none;
+      transition: transform 4.4s var(--soft), opacity 2s 2.6s var(--ease), filter 3s;
+    }
+    .seal {
+      position: absolute; z-index: 7; top: 38%; left: 50%;
+      width: 96px; height: 96px; border-radius: 50%;
+      display: grid; place-items: center;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle at 32% 28%, #ff8aa8, #b31442 46%, #6d0e2e 78%);
+      color: #fff6e8; font-size: 2rem;
+      box-shadow: 0 16px 32px rgba(50,0,16,.42), inset 0 3px 0 rgba(255,255,255,.34);
+      pointer-events: none;
+      animation: sealPulse 4.8s ease-in-out infinite;
+      transition: opacity 1.8s .15s var(--ease), transform 2.8s var(--soft);
+    }
+    .seal::before {
+      content: ""; position: absolute; inset: 8px; border-radius: 50%;
+      border: 1.5px dashed rgba(255,236,200,.58);
+    }
+
+    .closed-copy {
+      position: absolute; inset: auto 24px 52px;
+      text-align: center; z-index: 3;
+      transition: opacity 1.5s var(--ease), transform 2s var(--soft);
+    }
+    .closed-copy .kicker {
+      letter-spacing: .4em; text-transform: uppercase; font-size: .7rem;
+      color: #ffe3c4; margin: 0 0 10px;
+    }
+    .closed-copy h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 500; font-size: clamp(2rem, 7vw, 3rem); margin: 0 0 10px;
+    }
+    .closed-copy p { margin: 0; opacity: .86; font-size: .95rem; }
+
+    .letter {
+      position: relative; z-index: 9;
+      width: 100%;
+      overflow-wrap: break-word;
+      color: #5a1632;
+      background:
+        radial-gradient(circle at 50% -8%, rgba(255, 232, 186, .48), transparent 34%),
+        linear-gradient(180deg, #fffaf5, #fff1e8 58%, #ffe9ef);
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,.78);
+      box-shadow: 0 42px 96px rgba(12, 0, 6, .46), inset 0 0 0 10px rgba(255,255,255,.48);
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate3d(0, 80px, -80px) rotateX(12deg) scale(.92);
+      filter: blur(8px);
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 clamp(20px, 6vw, 52px);
+      margin: 0;
+      border-width: 0;
+      transform-origin: center top;
+      transition:
+        opacity 2.8s 2.2s var(--soft),
+        transform 3.6s 1.9s var(--soft),
+        filter 2.8s 2.1s var(--ease),
+        max-height 3.6s 1.8s var(--soft),
+        padding 2.4s 1.9s var(--ease),
+        border-width 1s 2s,
+        margin 1s 2s;
+    }
+    .letter::before {
+      content: ""; position: absolute; inset: 14px; border-radius: 18px;
+      border: 1px solid rgba(173, 70, 104, .15); pointer-events: none;
+    }
+
+    html:has(#open:checked) .flap {
+      transform: rotateX(-162deg);
+      opacity: 0;
+      filter: brightness(.76);
+    }
+    html:has(#open:checked) .seal {
+      opacity: 0;
+      transform: translate(-50%, -88%) scale(.4);
+      animation: none;
+    }
+    html:has(#open:checked) .pocket {
+      opacity: 0;
+      transform: translateY(-22px) scale(.965);
+      filter: blur(6px);
+      pointer-events: none;
+    }
+    html:has(#open:checked) .closed-copy {
+      opacity: 0; transform: translateY(-14px); pointer-events: none;
+    }
+    html:has(#open:checked) .letter {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate3d(0, 0, 0) rotateX(0) scale(1);
+      filter: blur(0);
+      max-height: 2600px;
+      overflow: visible;
+      padding: clamp(30px, 6vw, 58px) clamp(20px, 6vw, 52px) 42px;
+      border-width: 1px;
+      margin-top: 8px;
+    }
+
+    .rise {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    html:has(#open:checked) .rise { animation: riseIn 2.4s var(--soft) forwards; }
+
+    .write {
+      clip-path: inset(0 100% 0 -8px);
+    }
+    html:has(#open:checked) .write { animation: write 3.4s var(--ink) forwards; }
+
+    .d1 { animation-delay: 5.6s !important; }
+    .d2 { animation-delay: 7.2s !important; }
+    .d2b { animation-delay: 9.4s !important; }
+    .d3 { animation-delay: 11.6s !important; }
+    .d4 { animation-delay: 13s !important; }
+    .d5 { animation-delay: 14.6s !important; }
+    .d6 { animation-delay: 18.4s !important; }
+    .d7 { animation-delay: 22.6s !important; }
+    .d8 { animation-delay: 26.8s !important; }
+    .d9 { animation-delay: 31s !important; }
+    .d10 { animation-delay: 34.2s !important; }
+
+    .kicker {
+      letter-spacing: .34em; text-transform: uppercase; font-size: .7rem;
+      color: #b45309; font-weight: 600; margin: 0 0 14px;
+    }
+    h1 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 500; font-size: clamp(2.3rem, 8vw, 4.4rem);
+      line-height: 1.06; margin: 0;
+      color: #7a143c;
+    }
+    h1 em {
+      display: block; font-style: italic; font-weight: 500;
+      background: linear-gradient(90deg, #6a1234, #c9184a 40%, #b8860b 78%, #6a1234);
+      background-size: 220% auto;
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: shine 16s linear infinite;
+    }
+    .ornament {
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      margin: 20px 0 8px; color: #c45b7a; letter-spacing: .28em; font-size: .8rem;
+    }
+    .ornament::before, .ornament::after {
+      content: ""; width: 64px; height: 1px;
+      background: linear-gradient(90deg, transparent, #e8b4c4, transparent);
+    }
+    .bouquet {
+      display: flex; justify-content: center; gap: 8px; margin: 10px 0 20px;
+      font-size: clamp(1.7rem, 6vw, 2.5rem);
+      filter: drop-shadow(0 8px 12px rgba(48,0,20,.16));
+    }
+    .bouquet span { display: inline-block; animation: sway 6.2s ease-in-out infinite; }
+    .bouquet span:nth-child(2) { animation-delay: -1.2s; }
+    .bouquet span:nth-child(3) { animation-delay: -2.4s; }
+    .bouquet span:nth-child(4) { animation-delay: -3.4s; }
+    .bouquet span:nth-child(5) { animation-delay: -4.4s; }
+
+    .lead {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(1.2rem, 3.2vw, 1.52rem);
+      line-height: 1.75; margin: 0 auto 8px; max-width: 34em;
+      color: #6b1738;
+    }
+    .wishes { list-style: none; padding: 18px 0 0; margin: 8px 0 0; }
+    .wishes li {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic; font-size: clamp(1.12rem, 2.8vw, 1.34rem);
+      color: #8a2048; line-height: 1.65; margin: 0 0 26px;
+    }
+    .wishes li::before { content: "✦  "; color: #c9a15b; font-style: normal; font-size: .78em; }
+    .signature {
+      font-family: "Playfair Display", Georgia, serif;
+      font-style: italic; font-size: clamp(1.05rem, 4.2vw, 1.28rem);
+      line-height: 1.5; color: #9b1848; margin: 30px 8px 8px;
+    }
+    .footer { margin: 0; font-size: .72rem; color: #b07a8a; letter-spacing: .14em; }
+    .replay {
+      display: inline-block; margin-top: 32px; cursor: pointer;
+      color: #a56a7c; font-weight: 500; font-size: .78rem; letter-spacing: .1em;
+      background: none; border: 0; border-bottom: 1px solid transparent;
+      padding: 0; font-family: inherit;
+    }
+    .replay:hover { color: #8d123f; border-bottom-color: #e8b4c4; }
+
+    .confetti {
+      pointer-events: none; position: fixed; inset: 0; overflow: hidden; z-index: 10;
+    }
+    .confetti span {
+      position: absolute; top: 36%; left: 50%; font-size: 17px; opacity: 0;
+    }
+    html:has(#open:checked) .confetti span { animation: drift 6.2s var(--ease) both; }
+    .confetti span:nth-child(1)  { --x: -150px; --y: 110px; animation-delay: 30.4s; }
+    .confetti span:nth-child(2)  { --x: 140px;  --y: 140px; animation-delay: 30.7s; }
+    .confetti span:nth-child(3)  { --x: -40px;  --y: 50px;  animation-delay: 30.5s; }
+    .confetti span:nth-child(4)  { --x: 80px;   --y: 90px;  animation-delay: 30.9s; }
+    .confetti span:nth-child(5)  { --x: -200px; --y: 150px; animation-delay: 30.8s; }
+    .confetti span:nth-child(6)  { --x: 190px;  --y: 170px; animation-delay: 31.1s; }
+    .confetti span:nth-child(7)  { --x: -100px; --y: 200px; animation-delay: 31.3s; }
+    .confetti span:nth-child(8)  { --x: 30px;   --y: 28px;  animation-delay: 30.45s; }
+    .confetti span:nth-child(9)  { --x: 220px;  --y: 120px; animation-delay: 31.5s; }
+    .confetti span:nth-child(10) { --x: -70px;  --y: 130px; animation-delay: 31s; }
+    .confetti span:nth-child(11) { --x: 10px;   --y: 16px;  animation-delay: 30.55s; }
+    .confetti span:nth-child(12) { --x: -230px; --y: 180px; animation-delay: 31.4s; }
+
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes write {
+      to { clip-path: inset(0 -8px 0 -8px); }
+    }
+    @keyframes breathe { to { transform: scale(1.16); opacity: .6; } }
+    @keyframes rest {
+      0%, 100% { transform: translateY(0) rotateX(0); }
+      50% { transform: translateY(-6px) rotateX(1.2deg); }
+    }
+    @keyframes sealPulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.03); }
+    }
+    @keyframes fall {
+      0% { transform: translate3d(0, -8vh, var(--z)) rotateX(10deg) rotateZ(0); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translate3d(var(--x), 120vh, var(--z)) rotateX(38deg) rotateZ(400deg); opacity: .05; }
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: .08; transform: scale(.5); }
+      50% { opacity: .85; transform: scale(1.2); }
+    }
+    @keyframes shine { to { background-position: 220% center; } }
+    @keyframes sway {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-5px) rotate(2deg); }
+    }
+    @keyframes rayBreathe {
+      0%, 100% { opacity: .72; }
+      50% { opacity: 1; }
+    }
+    @keyframes slit {
+      0% { opacity: 0; transform: scaleY(.35); }
+      22% { opacity: 1; }
+      100% { opacity: 0; transform: scaleY(1.2); }
+    }
+    @keyframes peek {
+      0% { opacity: 0; transform: translate3d(0, 52px, 12px); }
+      32% { opacity: 1; transform: translate3d(0, 10px, 28px); }
+      100% { opacity: 0; transform: translate3d(0, -36px, 8px) scale(1.03); }
+    }
+    @keyframes climax {
+      0% { opacity: 0; }
+      22% { opacity: 1; }
+      100% { opacity: .16; }
+    }
+    @keyframes drift {
+      0% { opacity: 0; transform: translate(0, 0) scale(.45) rotate(0); }
+      14% { opacity: .8; }
+      100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(1.02) rotate(150deg); }
+    }
+
+    @media (max-width: 700px) {
+      .glow { width: 280px; height: 280px; }
+      .letter { filter: none; }
+      html:has(#open:checked) .pocket { filter: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+      .rise, .write, html:has(#open:checked) .letter { opacity: 1; transform: none; filter: none; max-height: none; clip-path: none; }
+    }
+  </style>
+</head>
+<body>
+  <input class="sr" type="checkbox" id="open">
+  <audio id="score" preload="auto" playsinline>
+    <source src="1017.MP3" type="audio/mpeg">
+  </audio>
+
+  <div class="vignette"></div>
+  <div class="rays" aria-hidden="true"></div>
+  <div class="climax" aria-hidden="true"></div>
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <i class="sparkle"></i><i class="sparkle"></i><i class="sparkle"></i>
+  <i class="sparkle"></i><i class="sparkle"></i>
+
+  <div class="petals" aria-hidden="true">
+    <span class="petal far">🌸</span>
+    <span class="petal mid">🌷</span>
+    <span class="petal far">💮</span>
+    <span class="petal near">✨</span>
+    <span class="petal mid">💕</span>
+    <span class="petal far">🌸</span>
+    <span class="petal mid">🌷</span>
+    <span class="petal near">💖</span>
+    <span class="petal far">💮</span>
+    <span class="petal near">✨</span>
+    <span class="petal far">🌸</span>
+    <span class="petal mid">🌷</span>
+  </div>
+
+  <div class="stage">
+    <div class="envelope-wrap">
+      <div class="envelope">
+        <div class="pocket">
+          <div class="closed-copy">
+            <p class="kicker">Phong thư</p>
+            <h2>Thiệp 20/10</h2>
+            <p>Chạm vào phong bì để mở lời chúc</p>
+          </div>
+        </div>
+        <div class="sheet" aria-hidden="true"></div>
+        <div class="slit" aria-hidden="true"></div>
+        <div class="flap" aria-hidden="true"></div>
+        <div class="seal" aria-hidden="true">❀</div>
+        <label class="open-hit" for="open" aria-label="Mở thiệp"></label>
+
+        <article class="letter">
+          <p class="kicker rise d1">Ngày 20 tháng 10</p>
+          <h1>
+            <span class="write d2" style="display:block">Chúc Mừng</span>
+            <em class="write d2b">Ngày của Bạn</em>
+          </h1>
+          <div class="ornament rise d3">20 · 10</div>
+          <div class="bouquet rise d4" aria-hidden="true">
+            <span>💐</span><span>🌷</span><span>💗</span><span>🌹</span><span>✨</span>
+          </div>
+          <p class="lead write d5">Gửi bạn — mong hôm nay dịu dàng như nắng qua rèm, và bạn được yêu thương mà không phải chứng minh điều gì.</p>
+          <ul class="wishes">
+            <li class="write d6">Chúc bạn luôn xinh đẹp theo cách riêng của mình.</li>
+            <li class="write d7">Chúc mọi ngày đều có một lý do để mỉm cười.</li>
+            <li class="write d8">Chúc những điều bạn yêu được nở hoa, chậm cũng được.</li>
+          </ul>
+          <p class="signature write d9">Bạn xứng đáng với những điều tuyệt vời nhất.</p>
+          <p class="footer rise d10">TẶNG BẠN MỘT CHÚT YÊU THƯƠNG</p>
+          <label class="replay rise d10" for="open">Gửi lại phong thư</label>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="confetti" aria-hidden="true">
+    <span>💗</span><span>🌷</span><span>✨</span><span>💖</span>
+    <span>🌸</span><span>💮</span><span>💕</span><span>🌹</span>
+    <span>⭐</span><span>💐</span><span>🌼</span><span>🌙</span>
+  </div>
+
+  <script>
+    (function () {
+      var box = document.getElementById("open");
+      var score = document.getElementById("score");
+      if (!box || !score) return;
+      var fadeToken = 0;
+      var targetVol = 0.52;
+
+      function fadeTo(target, ms, then) {
+        var id = ++fadeToken;
+        var start = score.volume;
+        var t0 = performance.now();
+        function step(now) {
+          if (id !== fadeToken) return;
+          var p = Math.min(1, (now - t0) / ms);
+          var k = p * p * (3 - 2 * p);
+          score.volume = start + (target - start) * k;
+          if (p < 1) requestAnimationFrame(step);
+          else if (then) then();
+        }
+        requestAnimationFrame(step);
+      }
+
+      box.addEventListener("change", function () {
+        if (box.checked) {
+          try { score.currentTime = 0; } catch (e) {}
+          score.volume = 0;
+          var play = score.play();
+          if (play && play.catch) play.catch(function () {});
+          fadeTo(targetVol, 2800);
+        } else {
+          fadeTo(0, 900, function () {
+            score.pause();
+            try { score.currentTime = 0; } catch (e) {}
+            score.volume = targetVol;
+          });
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
